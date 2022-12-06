@@ -1,0 +1,14 @@
+# vscode
+.vscode
+
+# cmake file
+/CMakeLists.txt
+
+# ros build
+/build
+/devel
+/.catkin_workspace
+
+# zip
+*tar.gz
+*.zip
