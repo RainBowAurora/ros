@@ -1,6 +1,7 @@
 # This config uses industrial_ci (https://github.com/ros-industrial/industrial_ci.git).
 # For troubleshooting, see README (https://github.com/ros-industrial/industrial_ci/blob/master/README.rst)
-name: ros-build
+
+name: CI
 
 on: # this determines when this workflow is run
   push:
@@ -11,7 +12,7 @@ on: # this determines when this workflow is run
   #  - cron: '0 4 * * *' # every day at 4 AM (UTC)
   workflow_dispatch: # allow manually starting this workflow
 
-  jobs:
+jobs:
   industrial_ci:
     name: ROS ${{ matrix.ROS_DISTRO }} (${{ matrix.ROS_REPO }})
     runs-on: ubuntu-latest
