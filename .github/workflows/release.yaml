@@ -34,6 +34,13 @@ jobs:
         apt-get update
         rosdep update
         rosdep install --from-paths src --ignore-src -r -y
+
+    - name: make deb bag
+      shell: bash
+      run: |
+        source /opt/ros/$ROS_DISTRO/setup.bash
+        ./src/darknet_ros/build.sh -c
+
     - name: catkin_make
       shell: bash
       run: |

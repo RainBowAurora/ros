@@ -54,7 +54,7 @@ HASH_KEY=`git rev-parse --verify --short HEAD`
 
 cat >${DEB_PATH}/DEBIAN/control << EOF 
 Package: ros-${ROS_DISTRO}-ros-node
-Version: ${VERSION}-${DATE}-${HASH_KEY}
+Version: ${VERSION}-${DATE}
 Section: misc
 Priority: optional
 Architecture: amd64
