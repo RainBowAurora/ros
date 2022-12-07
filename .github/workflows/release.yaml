@@ -47,6 +47,7 @@ jobs:
         catkin_test_results
     - name: make deb bag
       run: |
+        source /opt/ros/$ROS_DISTRO/setup.bash
         bash src/darknet_ros/build.sh -d
     
     - name: Create Release and Upload Release Asset
