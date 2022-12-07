@@ -42,27 +42,24 @@ jobs:
         source /opt/ros/$ROS_DISTRO/setup.bash
         catkin_make run_tests
         catkin_test_results
+
+    - name: zip
+      shell: bash
+      run: |
         apt-get install -y tree
         tree
-  # pub_release:
-  #   needs: catkin_build
-  #   runs-on: ubuntu-20.04
-  #   steps: 
-  #     - name: zip
-  #       run: |
-  #         apt-get install -y tree
-  #         tree
-
-#       - name: Create Release and Upload Release Asset
-#         uses: softprops/action-gh-release@v1
-#         if: startsWith(github.ref, 'refs/tags/')
-#         with:
-# #          tag_name: ${{ github.ref }}
-# #          name: Release ${{ github.ref }}
-#           body_path: CHANGELOG.txt
-#           draft: false
-#           prerelease: false
-#           files: |
-#             build.tar.gz
-#             devel.tar.gz
-#             LICENSE 
+        tar -cvf build.tar.gz build
+        tar -cvf devel.tar.gz devel
+      
+      - name: Create Release and Upload Release Asset
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+#          tag_name: ${{ github.ref }}
+#          name: Release ${{ github.ref }}
+          body_path: CHANGELOG.txt
+          draft: false
+          prerelease: false
+          files: |
+            build.tar.gz
+            devel.tar.gz
