@@ -12,7 +12,7 @@ jobs:
   catkin_build:
     strategy:
       matrix:
-        container: ["melodic", "kinetic"]
+        container: ["melodic", "kinetic", "noetic"]
     runs-on: ubuntu-20.04
     container: ros:${{ matrix.container }}
 
