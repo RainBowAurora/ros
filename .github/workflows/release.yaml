@@ -1,42 +1,67 @@
-name: publilsh release
+name: Build
 
-on: 
-  push:
-    # tags:
-    #   - "v*" #push events to matfching v* i.e. v1.0, v20.15.10
+on: [push]
+
+env:
+  BUILD_TYPE: Release
 
 jobs:
-  industrial_ci:
+  catkin_build:
     strategy:
       matrix:
-        env:
-          - {ROS_DISTRO: melodic, ROS_REPO: main}
-    runs-on: ubuntu-latest
+        container: ["ros:melodic", "ros:noetic"]
+    runs-on: ubuntu-20.04
+    container: ${{ matrix.container }}
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: 'ros-industrial/industrial_ci@master'
-        env: ${{matrix.env}}
-  
+    - name: update git
+      run: |
+        apt-get update 
+        apt-get install -y software-properties-common
+        add-apt-repository ppa:git-core/ppa
+        apt-get update
+        apt-get install -y git
+    - uses: actions/checkout@v2
+      with:
+        path: src/darknet_ros 
+        submodules: 'recursive'
+
+    - name: rosdep install
+      run: |
+        apt-get update
+        rosdep update
+        rosdep install --from-paths src --ignore-src -r -y
+    - name: catkin_make
+      shell: bash
+      run: |
+        source /opt/ros/$ROS_DISTRO/setup.bash
+        catkin_make -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+    - name: catkin_make run_tests
+      shell: bash
+      run: |
+        source /opt/ros/$ROS_DISTRO/setup.bash
+        catkin_make run_tests
+        catkin_test_results
+
   pub_release:
     needs: industrial_ci
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps: 
       - name: zip
         run: |
-          ls
-          tar -cvf build.tar.gz ./build/
-          tar -cvf devel.tar.gz ./devel/
+          apt-get install -y tree
+          tree
 
-      - name: Create Release and Upload Release Asset
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-#          tag_name: ${{ github.ref }}
-#          name: Release ${{ github.ref }}
-          body_path: CHANGELOG.txt
-          draft: false
-          prerelease: false
-          files: |
-            build.tar.gz
-            devel.tar.gz
-            LICENSE 
+#       - name: Create Release and Upload Release Asset
+#         uses: softprops/action-gh-release@v1
+#         if: startsWith(github.ref, 'refs/tags/')
+#         with:
+# #          tag_name: ${{ github.ref }}
+# #          name: Release ${{ github.ref }}
+#           body_path: CHANGELOG.txt
+#           draft: false
+#           prerelease: false
+#           files: |
+#             build.tar.gz
+#             devel.tar.gz
+#             LICENSE 
