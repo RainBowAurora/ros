@@ -46,7 +46,10 @@ jobs:
         catkin_make run_tests
         catkin_test_results
     - name: make deb bag
-      run: bash ${{ github.workspace }}/.github/script/build.sh -d
+      run: |
+        apt-get install tree
+        tree
+        bash ${{ github.workspace }}/.github/script/build.sh -d
     
     - name: Create Release and Upload Release Asset
       uses: softprops/action-gh-release@v1
