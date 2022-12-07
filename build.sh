@@ -97,7 +97,6 @@ function parse_arguments() {
                 exit 0
                 ;;
             -d|--deb)
-                build_object
                 create_control_file
                 exit 0
                 ;;
