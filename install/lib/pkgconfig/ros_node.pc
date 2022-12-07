@@ -1,8 +1,0 @@
-prefix=/home/alex/work/ros_wps/install
-
-Name: ros_node
-Description: Description of ros_node
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
