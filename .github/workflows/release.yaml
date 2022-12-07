@@ -2,8 +2,8 @@ name: publilsh release
 
 on: 
   push:
-    tags:
-      - "v*" #push events to matfching v* i.e. v1.0, v20.15.10
+    # tags:
+    #   - "v*" #push events to matfching v* i.e. v1.0, v20.15.10
 
 jobs:
   industrial_ci:
