@@ -1,0 +1,4 @@
+<!--xml vesion="1.0"-->
+<launch>
+	<node pkg="ros_node" type="ros_node_node" name="ros_node" output="screen" />
+</launch>

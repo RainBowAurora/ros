@@ -1,14 +1,14 @@
 #include <iostream>
-#include <ros/ros.h>
+#include "ros_node/ros_node.h"
 
 int main(int argc, char *argv[])
 {
     ros::init(argc, argv, "ros_node");
-    ros::NodeHandle nh;
 
-    while(ros::ok()){
-        ros::Duration(1).sleep();
-        ROS_INFO("This is ros_node test");
-    }
+    RosNode ros_node;
+    
+    ros_node.init();
+    ros_node.run();
+
     return 0;
 }   

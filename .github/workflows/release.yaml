@@ -45,11 +45,8 @@ jobs:
         source /opt/ros/$ROS_DISTRO/setup.bash
         catkin_make run_tests
         catkin_test_results
-    - name: zip bag
-      shell: bash
-      run: |
-        tar -cvf ${{ matrix.container }}-build.tar.gz build
-        tar -cvf ${{ matrix.container }}-devel.tar.gz devel
+    - name: make deb bag
+      run: bash ${{ github.workspace }}/.github/script/build.sh -d
     
     - name: Create Release and Upload Release Asset
       uses: softprops/action-gh-release@v1
