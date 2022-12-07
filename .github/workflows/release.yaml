@@ -12,7 +12,7 @@ jobs:
   catkin_build:
     strategy:
       matrix:
-        container: ["ros:melodic"]
+        container: ["ros:melodic", "ros:kinetic"]
     runs-on: ubuntu-20.04
     container: ${{ matrix.container }}
 
@@ -50,8 +50,7 @@ jobs:
       run: |
         apt-get install -y tree
         tree
-        tar -cvf build.tar.gz build
-        tar -cvf devel.tar.gz devel
+        tar -cvf ${{ matrix.container }}-build.tar.gz build devel
     
     - name: Create Release and Upload Release Asset
       uses: softprops/action-gh-release@v1
@@ -59,9 +58,8 @@ jobs:
       with:
 #          tag_name: ${{ github.ref }}
 #          name: Release ${{ github.ref }}
-        # body_path: CHANGELOG.txt
+        # body_path: %{{ }}/  CHANGELOG.txt
         draft: false
         prerelease: false
         files: |
           build.tar.gz
-          devel.tar.gz
