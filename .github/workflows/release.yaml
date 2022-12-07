@@ -9,7 +9,7 @@ jobs:
   catkin_build:
     strategy:
       matrix:
-        container: ["ros:melodic", "ros:noetic"]
+        container: ["ros:melodic"]
     runs-on: ubuntu-20.04
     container: ${{ matrix.container }}
 
@@ -42,15 +42,16 @@ jobs:
         source /opt/ros/$ROS_DISTRO/setup.bash
         catkin_make run_tests
         catkin_test_results
-
-  pub_release:
-    needs: catkin_build
-    runs-on: ubuntu-20.04
-    steps: 
-      - name: zip
-        run: |
-          apt-get install -y tree
-          tree
+        apt-get install -y tree
+        tree
+  # pub_release:
+  #   needs: catkin_build
+  #   runs-on: ubuntu-20.04
+  #   steps: 
+  #     - name: zip
+  #       run: |
+  #         apt-get install -y tree
+  #         tree
 
 #       - name: Create Release and Upload Release Asset
 #         uses: softprops/action-gh-release@v1
