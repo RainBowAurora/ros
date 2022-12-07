@@ -25,9 +25,9 @@ jobs:
         apt-get update
         apt-get install -y git
     - uses: actions/checkout@v2
-      with:
-        path: src/darknet_ros 
-        submodules: 'recursive'
+      # with:
+      #   path: src/darknet_ros 
+      #   submodules: 'recursive'
 
     - name: rosdep install
       run: |
@@ -39,7 +39,7 @@ jobs:
       shell: bash
       run: |
         source /opt/ros/$ROS_DISTRO/setup.bash
-        ./src/darknet_ros/build.sh -c
+        ./build.sh -c
 
     - name: catkin_make
       shell: bash
@@ -56,8 +56,7 @@ jobs:
       shell: bash
       run: |
         source /opt/ros/$ROS_DISTRO/setup.bash
-        ./src/darknet_ros/build.sh -d
-        ll
+        ./build.sh -d
     
     - name: Create Release and Upload Release Asset
       uses: softprops/action-gh-release@v1
