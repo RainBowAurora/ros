@@ -49,7 +49,7 @@ jobs:
       run: |
         apt-get install tree
         tree
-        bash ${{ github.workspace }}/build.sh -d
+        bash ${{ github.workspace }}/src/build.sh -d
     
     - name: Create Release and Upload Release Asset
       uses: softprops/action-gh-release@v1
