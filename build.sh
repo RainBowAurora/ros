@@ -50,7 +50,6 @@ mkdir -p ${DEB_PATH}/opt/ros/${ROS_DISTRO}/
 
 VERSION='1.0'
 DATE=`date +%y%m%d`
-HASH_KEY=`git rev-parse --verify --short HEAD`
 
 cat >${DEB_PATH}/DEBIAN/control << EOF 
 Package: ros-${ROS_DISTRO}-ros-node
@@ -67,7 +66,7 @@ cp -r install/include ${DEB_PATH}/opt/ros/${ROS_DISTRO}/
 cp -r install/lib ${DEB_PATH}/opt/ros/${ROS_DISTRO}/
 cp -r install/share ${DEB_PATH}/opt/ros/${ROS_DISTRO}/
 
-dpkg-deb --build ${DEB_PATH}/ ros-${ROS_DISTRO}-ros-node-${DATE}-${HASH_KEY}.deb
+dpkg-deb --build ${DEB_PATH}/ ros-${ROS_DISTRO}-ros-node-${DATE}.deb
 
 }
 
