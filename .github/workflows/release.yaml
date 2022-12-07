@@ -59,7 +59,7 @@ jobs:
       with:
 #          tag_name: ${{ github.ref }}
 #          name: Release ${{ github.ref }}
-        body_path: CHANGELOG.txt
+        # body_path: CHANGELOG.txt
         draft: false
         prerelease: false
         files: |
