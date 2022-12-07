@@ -1,7 +1,0 @@
-Package: ros-noetic-ros-node
-Version: 1.0-221207-c6b90c4
-Section: misc
-Priority: optional
-Architecture: amd64
-Maintainer: 851045076@qq.com
-Description: The ros_node package
