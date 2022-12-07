@@ -13,3 +13,6 @@
 # zip
 *tar.gz
 *.zip
+
+# deb bag
+*.deb

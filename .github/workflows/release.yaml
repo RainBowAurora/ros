@@ -39,7 +39,7 @@ jobs:
       shell: bash
       run: |
         source /opt/ros/$ROS_DISTRO/setup.bash
-        ./build.sh -c
+        ./.github/script/clear.sh 
 
     - name: catkin_make
       shell: bash
@@ -56,7 +56,7 @@ jobs:
       shell: bash
       run: |
         source /opt/ros/$ROS_DISTRO/setup.bash
-        ./build.sh -d
+        ./.github/script/build.sh
 
     - name: Create Release and Upload Release Asset
       uses: softprops/action-gh-release@v1
@@ -64,7 +64,7 @@ jobs:
       with:
 #          tag_name: ${{ github.ref }}
 #          name: Release ${{ github.ref }}
-        # body_path: %{{ }}/  CHANGELOG.txt
+        body_path: CHANGELOG.rst
         draft: false
         prerelease: false
         files: |
