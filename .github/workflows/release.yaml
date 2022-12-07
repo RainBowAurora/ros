@@ -44,7 +44,7 @@ jobs:
         catkin_test_results
 
   pub_release:
-    needs: industrial_ci
+    needs: catkin_build
     runs-on: ubuntu-20.04
     steps: 
       - name: zip
