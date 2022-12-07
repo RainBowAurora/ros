@@ -61,5 +61,4 @@ jobs:
         draft: false
         prerelease: false
         files: |
-          ${{ matrix.container }}-build.tar.gz
-          ${{ matrix.container }}-devel.tar.gz
+          *.deb
