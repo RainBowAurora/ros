@@ -12,9 +12,9 @@ jobs:
   catkin_build:
     strategy:
       matrix:
-        container: ["ros:melodic", "ros:kinetic"]
+        container: ["melodic", "kinetic"]
     runs-on: ubuntu-20.04
-    container: ${{ matrix.container }}
+    container: ros:${{ matrix.container }}
 
     steps:
     - name: update git
@@ -49,6 +49,7 @@ jobs:
       shell: bash
       run: |
         tar -cvf ${{ matrix.container }}-build.tar.gz build
+        tar -cvf ${{ matrix.container }}-devel.tar.gz devel
     
     - name: Create Release and Upload Release Asset
       uses: softprops/action-gh-release@v1
