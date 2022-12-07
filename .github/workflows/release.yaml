@@ -18,8 +18,8 @@ jobs:
         env: ${{matrix.env}}
   
   pub_release:
-  needs: industrial_ci
-   runs-on: ubuntu-latest
+    needs: industrial_ci
+    runs-on: ubuntu-latest
     steps: 
       - name: zip
         run: |
