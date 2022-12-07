@@ -15,6 +15,7 @@ jobs:
         container: ["melodic", "kinetic", "noetic"]
     runs-on: ubuntu-20.04
     container: ros:${{ matrix.container }}
+
     steps:
     - name: update git
       run: |
@@ -33,13 +34,11 @@ jobs:
         apt-get update
         rosdep update
         rosdep install --from-paths src --ignore-src -r -y
-
     - name: make deb bag
       shell: bash
       run: |
         source /opt/ros/$ROS_DISTRO/setup.bash
         ./.github/script/clear.sh 
-
     - name: catkin_make
       shell: bash
       run: |
@@ -57,27 +56,10 @@ jobs:
         source /opt/ros/$ROS_DISTRO/setup.bash
         ./.github/script/build.sh
 
-    - name: Upload math result for deb
-      uses: actions/upload-artifact@v3
-      with:
-        name: package_deb
-        path: *.deb
-
-  publish_release:
-    needs: catkin_build
-    runs-on: ubuntu-20.04
-    steps:
-    - name: Download math result for deb
-      uses: actions/download-artifact@v3
-      with:
-        name: package_deb
-
     - name: Create Release and Upload Release Asset
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-#          tag_name: ${{ github.ref }}
-#          name: Release ${{ github.ref }}
         body_path: CHANGELOG.rst
         draft: false
         prerelease: false
